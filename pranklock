@@ -3,17 +3,17 @@
 # See https://github.com/RealOrangeOne/pranklock
 
 ESCAPE_KEY=9
-TEMP_SCREEN_FILE=$(mktemp)
+TEMP_SCREEN_FILE=$(mktemp XXXXXXXXXX.png)
 
-screensize=`xdpyinfo | grep -i dimensions: | sed 's/[^0-9]*pixels.*(.*).*//' | sed 's/[^0-9x]*//'`
+screensize=$(xdpyinfo | grep -i dimensions: | sed 's/[^0-9]*pixels.*(.*).*//' | sed 's/[^0-9x]*//')
 
-ffmpeg -y -f x11grab -s $screensize -i $DISPLAY -vframes 1 $TEMP_SCREEN_FILE
+ffmpeg -y -f x11grab -s "$screensize" -i "$DISPLAY" -vframes 1 "$TEMP_SCREEN_FILE"
 
 key=0
-while read line
+while read -r line
 do
     if [[ "$line" =~ "detail:" ]]; then
-        key=$(echo $line | sed 's/detail: //')
+        key=${line//detail: /}
         break
     fi
 done < <(xinput test-xi2 --root)
@@ -23,8 +23,8 @@ killall i3lock
 if [[ "$key" == "$ESCAPE_KEY" ]]; then
     xdotool key "Super_L+L"  # Delegate locking to something else
 else
-    ffmpeg -f video4linux2 -i /dev/video0 -y -vf "scale=$screensize" -frames 1 $TEMP_SCREEN_FILE
-    i3lock -i $TEMP_SCREEN_FILE
+    ffmpeg -f video4linux2 -i /dev/video0 -y -vf "scale=$screensize" -frames 1 "$TEMP_SCREEN_FILE"
+    i3lock -i "$TEMP_SCREEN_FILE"
 fi
 
-rm -f $TEMP_SCREEN_FILE
+rm -f "$TEMP_SCREEN_FILE"
