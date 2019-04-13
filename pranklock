@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# See https://github.com/RealOrangeOne/pranklock
+
 ESCAPE_KEY=9
 TEMP_SCREEN_FILE=$(mktemp)
 
