@@ -11,3 +11,5 @@ Locks the screen with a screenshot of the desktop. If any key is pressed, or the
 - `i3lock`
 - `ffmpeg`
 - `xdotool`
+
+__Note__: This is currently untested on multi-monitor setups
