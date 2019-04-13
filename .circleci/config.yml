@@ -1,0 +1,10 @@
+version: 2.0
+
+jobs:
+    build:
+        docker:
+            - image: circleci/python:latest
+        steps:
+            - checkout
+            - run: apt update -y && apt install shellcheck
+            - run: shellcheck pranklock
