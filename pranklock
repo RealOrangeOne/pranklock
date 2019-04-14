@@ -6,6 +6,11 @@ ESCAPE_KEY=9
 TEMP_FILE=/tmp/pranklock.png
 VIDEO_DEV=${1:-/dev/video0}
 
+if [ ! -f "$VIDEO_DEV" ]; then
+    xdotool key "Super_L+l"
+    exit
+fi
+
 screensize=$(xdpyinfo | grep -i dimensions: | sed 's/[^0-9]*pixels.*(.*).*//' | sed 's/[^0-9x]*//')
 
 ffmpeg -y -f x11grab -s "$screensize" -i "$DISPLAY" -vframes 1 "$TEMP_FILE"
