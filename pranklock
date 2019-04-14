@@ -6,7 +6,7 @@ ESCAPE_KEY=9
 TEMP_FILE=/tmp/pranklock.png
 VIDEO_DEV=${1:-/dev/video0}
 
-if [ ! -f "$VIDEO_DEV" ]; then
+if [ ! -e "$VIDEO_DEV" ]; then
     xdotool key "Super_L+l"
     exit
 fi
