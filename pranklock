@@ -26,10 +26,7 @@ do
     fi
 done < <(xinput test-xi2 --root)
 
-if [[ "$key" == "$ESCAPE_KEY" ]]; then
-    killall i3lock
-    xdotool key "Super_L+l"  # Delegate locking to something else
-else
+if [[ "$key" -ne "$ESCAPE_KEY" ]]; then
     ffmpeg -f video4linux2 -video_size hd720 -i "$VIDEO_DEV" -y -vf "scale=$screensize" -frames 1 "$TEMP_FILE"
     killall i3lock
     i3lock -i "$TEMP_FILE"
