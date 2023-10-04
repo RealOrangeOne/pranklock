@@ -3,7 +3,7 @@
 # See https://github.com/RealOrangeOne/pranklock
 
 ESCAPE_KEY=9
-TEMP_FILE=/tmp/pranklock.png
+TEMP_FILE=$(mktemp -t "XXXXXXXXXX.png")
 VIDEO_DEV=${1:-/dev/video0}
 
 if [ ! -e "$VIDEO_DEV" ]; then
