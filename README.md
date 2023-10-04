@@ -12,4 +12,11 @@ Locks the screen with a screenshot of the desktop. If any key is pressed, or the
 - `ffmpeg`
 - `xdotool`
 
-__Note__: This is currently untested on multi-monitor setups
+## Usage
+
+1. Install the above dependencies
+2. Run the `pranklock` script to _lock_ your screen
+
+By default, the first webcam (`/dev/video0`) is used. To change this, pass the video device as an argument (eg `pranklock /dev/video1`)
+
+3. To safely unlock without showing the webcam image, press the Escape key. You can then unlock as normal.
